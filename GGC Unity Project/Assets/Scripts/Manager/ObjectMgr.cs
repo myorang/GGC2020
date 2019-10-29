@@ -89,6 +89,9 @@ public class ObjectMgr : Singleton<ObjectMgr>
             {
                 Debug.Log("pool size " + pool.size);
                 Debug.Log("pool size " + poolDictionary[tag].Count);
+                pool.size += poolDictionary[tag].Count;
+                poolDictionary.Remove(pool.tag);
+
                 Queue<GameObject> objectPool = new Queue<GameObject>();
 
                 // 오브젝트 셋팅
@@ -110,9 +113,7 @@ public class ObjectMgr : Singleton<ObjectMgr>
                         objectPool.Enqueue(obj);
                     }
                 }
-                pool.size += poolDictionary[tag].Count;
 
-                poolDictionary.Remove(pool.tag);
                 poolDictionary.Add(pool.tag, objectPool);
 
                 return;

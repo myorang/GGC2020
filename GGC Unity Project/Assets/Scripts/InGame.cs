@@ -18,7 +18,7 @@ public class InGame : MonoBehaviour
     }
     void Update()
     {
-        EffectMgr.SpawnSprite("Particle 1", transform, 1);
+        //EffectMgr.SpawnSprite("Particle 1", transform, 1);
         EffectMgr.SliderValue(slider, value);
     }
 }

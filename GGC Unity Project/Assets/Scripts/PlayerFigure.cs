@@ -16,7 +16,7 @@ public class PlayerFigure : MonoBehaviour
 
         obj = EffectMgr.SpawnSprite("Particle 1", transform, 3);
 
-        StartCoroutine(EffectMgr.DisableSprite(obj, 1f));
+        //StartCoroutine(EffectMgr.DisableSprite(obj, 1f));
 
         other.gameObject.SetActive(false);
     }

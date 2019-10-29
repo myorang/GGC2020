@@ -36,7 +36,6 @@ public class AnimationMgr : MonoBehaviour
         while (!isStop)
         {
             // Update
-            Debug.Log("Playing ... ");
             spriteR.sprite = sprites[sequence];
             sequence++;
 
