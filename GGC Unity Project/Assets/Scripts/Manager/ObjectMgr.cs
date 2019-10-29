@@ -63,6 +63,14 @@ public class ObjectMgr : Singleton<ObjectMgr>
         // Key O
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
 
+        if (objectToSpawn.activeSelf == true)
+        {
+            Debug.Log("Full");
+            AddPool(tag);
+        }
+
+        // 끝까지 도달함
+
         objectToSpawn.SetActive(true);
         objectToSpawn.transform.position = position;
         objectToSpawn.transform.rotation = rotation;
@@ -70,5 +78,45 @@ public class ObjectMgr : Singleton<ObjectMgr>
         poolDictionary[tag].Enqueue(objectToSpawn);
 
         return objectToSpawn;
+    }
+
+    // tag의 이름을 가진 풀을 추가해줌
+    void AddPool(string tag)
+    {
+        foreach (Pool pool in pools)
+        {
+            if (pool.tag == tag)
+            {
+                Debug.Log("pool size " + pool.size);
+                Debug.Log("pool size " + poolDictionary[tag].Count);
+                Queue<GameObject> objectPool = new Queue<GameObject>();
+
+                // 오브젝트 셋팅
+                if (!pool.parent)
+                {
+                    for (int i = 0; i < pool.size; i++)
+                    {
+                        GameObject obj = Instantiate(pool.prefab);
+                        obj.SetActive(false);
+                        objectPool.Enqueue(obj);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < pool.size; i++)
+                    {
+                        GameObject obj = Instantiate(pool.prefab, pool.parent.transform);
+                        obj.SetActive(false);
+                        objectPool.Enqueue(obj);
+                    }
+                }
+                pool.size += poolDictionary[tag].Count;
+
+                poolDictionary.Remove(pool.tag);
+                poolDictionary.Add(pool.tag, objectPool);
+
+                return;
+            } 
+        }
     }
 }
