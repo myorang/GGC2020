@@ -13,7 +13,7 @@ public class InGame : MonoBehaviour
 
     void Start()
     {
-        //EffectMgr.SpawnSprite("Particle 1", transform, 10);
+        //EffectMgr.SpawnSprite("Particle 1", transform, 1);
         //SoundMgr.Instance.PlayLoopSound("TestBgm","BGM");
     }
     void Update()

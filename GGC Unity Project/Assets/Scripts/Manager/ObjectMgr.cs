@@ -45,7 +45,6 @@ public class ObjectMgr : Singleton<ObjectMgr>
                     objectPool.Enqueue(obj);
                 }
             }
-
             poolDictionary.Add(pool.tag, objectPool);
         }
     }
@@ -61,23 +60,25 @@ public class ObjectMgr : Singleton<ObjectMgr>
         }
 
         // Key O
-        GameObject objectToSpawn = poolDictionary[tag].Dequeue();
-
-        if (objectToSpawn.activeSelf == true)
-        {
-            Debug.Log("Full");
-            AddPool(tag);
-        }
-
         // 끝까지 도달함
+        foreach (GameObject dic in poolDictionary[tag])
+        {
+            Debug.Log(dic.name);
+            if (!dic.activeSelf)
+            {
+                GameObject objectToSpawn = poolDictionary[tag].Dequeue();
 
-        objectToSpawn.SetActive(true);
-        objectToSpawn.transform.position = position;
-        objectToSpawn.transform.rotation = rotation;
+                objectToSpawn.SetActive(true);
+                objectToSpawn.transform.position = position;
+                objectToSpawn.transform.rotation = rotation;
 
-        poolDictionary[tag].Enqueue(objectToSpawn);
-
-        return objectToSpawn;
+                poolDictionary[tag].Enqueue(objectToSpawn);
+                return null;
+            }
+        }
+        Debug.Log("Full");
+        AddPool(tag);
+        return null;
     }
 
     // tag의 이름을 가진 풀을 추가해줌
@@ -90,7 +91,7 @@ public class ObjectMgr : Singleton<ObjectMgr>
                 Debug.Log("pool size " + pool.size);
                 Debug.Log("pool size " + poolDictionary[tag].Count);
                 pool.size += poolDictionary[tag].Count;
-                poolDictionary.Remove(pool.tag);
+                //poolDictionary.Remove(pool.tag);
 
                 Queue<GameObject> objectPool = new Queue<GameObject>();
 
@@ -114,7 +115,7 @@ public class ObjectMgr : Singleton<ObjectMgr>
                     }
                 }
 
-                poolDictionary.Add(pool.tag, objectPool);
+                poolDictionary[tag] = objectPool;
 
                 return;
             } 
