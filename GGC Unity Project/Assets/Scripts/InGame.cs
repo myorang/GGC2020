@@ -5,7 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class InGame : MonoBehaviour
-{ 
+{
+    public BulletManager bulletManager;
+    public bool isMusicStart = false;
     public Slider slider;
 
     [Range(0f, 1f)]
