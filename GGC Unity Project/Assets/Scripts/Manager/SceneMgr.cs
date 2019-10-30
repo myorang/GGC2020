@@ -18,7 +18,7 @@ public class SceneMgr : MonoBehaviour
         Main = 0,
         Loading,
         Stage,
-        Game,
+        Game2,
         GameOver,
         Prologue,
         Epilogue
@@ -55,7 +55,7 @@ public class SceneMgr : MonoBehaviour
         // 진행중 일 때
         while (!asyncOperation.isDone)
         {
-            Debug.Log(asyncOperation.progress);
+            //Debug.Log(asyncOperation.progress);
             yield return null;
         }
     }

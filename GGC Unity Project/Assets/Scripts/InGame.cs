@@ -25,13 +25,12 @@ public class InGame : MonoBehaviour
         isMusicStart = true;
 
         //EffectMgr.SpawnSprite("Particle 1", transform, 3);
-        SoundMgr.Instance.PlayLoopSound("phase3", "BGM");
+        SoundMgr.Instance.PlayBgmSound("phase3", false, 0.3f);
         bulletManager.MusicStart();
     }
 
     void Update()
     {
         //EffectMgr.SpawnSprite("Particle 1", transform, 1);
-        EffectMgr.SliderValue(slider, value);
     }
 }

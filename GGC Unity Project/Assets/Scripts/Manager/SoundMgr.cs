@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[AddComponentMenu("AudioSource")]
 public class SoundMgr : Singleton<SoundMgr>
 {
     #region Public
@@ -26,6 +27,10 @@ public class SoundMgr : Singleton<SoundMgr>
 
     void Awake()
     {
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        Screen.SetResolution(1280, 720, true);
+        DontDestroyOnLoad(this);
+
         sfxPlayer = GetComponent<AudioSource>();
         bgmPlayer = transform.GetChild(0).GetComponent<AudioSource>();
 
@@ -42,6 +47,7 @@ public class SoundMgr : Singleton<SoundMgr>
 
     void Start()
     {
+        PlayBgmSound("phase2", false, 1f);
         if (bgmPlayer.clip != null)
             bgmPlayer.Play();
     }

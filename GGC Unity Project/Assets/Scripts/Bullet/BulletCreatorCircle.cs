@@ -67,7 +67,23 @@ public class BulletCreatorCircle : MonoBehaviour
         for (int i = 0; i < bulletCount; i++)
         {
             GameObject bullet = ObjectMgr.Instance.SpawnFromPool(bulletTag, transform.position, Quaternion.identity);
+            bullet.GetComponent<SpriteRenderer>().sprite = RandomSprite.Instance.GetSprite();
+
             Bullet bulletController = bullet.GetComponent<Bullet>();
+
+            if (bulletController.bulletType != BulletType.Cherry)
+            {
+                bullet.GetComponent<SpriteRenderer>().color
+                    = new Color(0f
+                                , 0.5f + 0.5f / bulletCount * i
+                                , 0f, 1f);
+            }
+            else
+            {
+                bullet.GetComponent<SpriteRenderer>().color
+                    = new Color(1f, 0.6f + 0.4f / bulletCount * i, 1f, 1f);
+            }
+
             bulletController.angle = minAngle + angleRatio * i;
             bulletController.angleRate = minAngleRate + angleRateRatio * i;
             bulletController.speed = minSpeed + speedRatio * i;

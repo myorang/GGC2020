@@ -196,6 +196,8 @@ public class BulletManager : Singleton<BulletManager>
     [HideInInspector]
     public int intervalCount = 0;
     public Section nowSection;
+    public bool isClear = false;
+
     private IEnumerator Interval()
     {
         while (true)
@@ -235,10 +237,20 @@ public class BulletManager : Singleton<BulletManager>
 
             sectionCount++;
 
-            yield return new WaitForSeconds(nowSection.interval);
+            yield return new WaitForSecondsRealtime(nowSection.interval);
         }
 
-        Application.Quit();
+        if (isClear)
+        {
+            SceneMgr.LoadingScene(SceneMgr.Scene.Epilogue);
+            SoundMgr.Instance.StopBGM();
+        }
+        else
+        {
+            SceneMgr.LoadingScene(SceneMgr.Scene.GameOver);
+            SoundMgr.Instance.StopBGM();
+        }
+
     }
 
     public void CreateBulletOnPattern(BulletPattern pattern, Vector3 createPos)
@@ -249,7 +261,7 @@ public class BulletManager : Singleton<BulletManager>
             case BulletCreatorType.NWay:
                 pattern.bulletCreatorName = string.Format("Bullet Creator NWay");
                 creator = ObjectMgr.Instance.SpawnFromPool(pattern.bulletCreatorName, createPos, Quaternion.identity);
-                
+
                 creator.GetComponent<BulletCreatorNWay>().Init(pattern, creator.transform.position);
                 break;
 
@@ -258,7 +270,7 @@ public class BulletManager : Singleton<BulletManager>
                 pattern.minAngle = 0;
                 pattern.maxAngle = 360f - (360f / pattern.bulletCount);
                 creator = ObjectMgr.Instance.SpawnFromPool(pattern.bulletCreatorName, createPos, Quaternion.identity);
-                creator.GetComponent<BulletCreatorNWay>().Init(pattern, createPos);
+                creator.GetComponent<BulletCreatorNWay>().Init(pattern, createPos, Color.black);
                 break;
 
             default:

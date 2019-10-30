@@ -39,26 +39,33 @@ public class UIMgr : MonoBehaviour
     public void BoostButtonClick()
     {
         PlayerFigure.isBoost = true;
-        PlayerFigure.isInvincibility = true;
+        //PlayerFigure.isInvincibility = true;
     }
 
     public void StartButtonClick()
     {
+        SoundMgr.Instance.PlaySfxSound("ButtonClick", false, 0.2f);
         SceneMgr.LoadingScene(SceneMgr.Scene.Stage);
+        SoundMgr.Instance.StopBGM();
     }
 
     public void ExitButtonClick()
     {
-        SceneMgr.LoadingScene(SceneMgr.Scene.Main);
+        Application.Quit();
     }
 
     public void StageButtonClick()
     {
+        SoundMgr.Instance.PlaySfxSound("ButtonClick", false, 0.2f);
         SceneMgr.LoadingScene(SceneMgr.Scene.Prologue);
+        SoundMgr.Instance.StopBGM();
+        SoundMgr.Instance.PlayBgmSound("phase1", false, 1f);
     }
 
     public void RetryButtonClick()
     {
+        SoundMgr.Instance.PlaySfxSound("ButtonClick", false, 0.2f);
         SceneMgr.LoadingScene(SceneMgr.Scene.Prologue);
+        SoundMgr.Instance.StopBGM();
     }
 }

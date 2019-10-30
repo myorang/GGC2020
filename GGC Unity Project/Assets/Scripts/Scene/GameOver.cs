@@ -19,7 +19,7 @@ public class GameOver : MonoBehaviour
         float opecity = 1f;
         while (opecity >= 0f)
         {
-            Debug.Log(opecity);
+            //Debug.Log(opecity);
             opecity -= Time.deltaTime;
             image[0].color = new Color(0, 0, 0, opecity);
             yield return new WaitForSeconds(0.05f);
