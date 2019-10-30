@@ -1,12 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InGame : Singleton<InGame>
-{
-    public BulletManager bulletManager;
-    public bool isMusicStart = false;
+public class InGame : MonoBehaviour
+{ 
     public Slider slider;
 
     [Range(0f, 1f)]
@@ -30,6 +29,7 @@ public class InGame : Singleton<InGame>
 
     void Update()
     {
+        //EffectMgr.SpawnSprite("Particle 1", transform, 1);
         EffectMgr.SliderValue(slider, value);
     }
 }
