@@ -37,7 +37,9 @@ public class ObjectMgr : Singleton<ObjectMgr>
                     obj.SetActive(false);
                     objectPool.Enqueue(obj);
                 }
-            } else {
+            }
+            else
+            {
                 for (int i = 0; i < pool.size; i++)
                 {
                     GameObject obj = Instantiate(pool.prefab, pool.parent.transform);
@@ -45,6 +47,7 @@ public class ObjectMgr : Singleton<ObjectMgr>
                     objectPool.Enqueue(obj);
                 }
             }
+
             poolDictionary.Add(pool.tag, objectPool);
         }
     }
@@ -60,65 +63,14 @@ public class ObjectMgr : Singleton<ObjectMgr>
         }
 
         // Key O
-        // 끝까지 도달함
-        foreach (GameObject dic in poolDictionary[tag])
-        {
-            Debug.Log(dic.name);
-            if (!dic.activeSelf)
-            {
-                GameObject objectToSpawn = poolDictionary[tag].Dequeue();
+        GameObject objectToSpawn = poolDictionary[tag].Dequeue();
 
-                objectToSpawn.SetActive(true);
-                objectToSpawn.transform.position = position;
-                objectToSpawn.transform.rotation = rotation;
+        objectToSpawn.SetActive(true);
+        objectToSpawn.transform.position = position;
+        objectToSpawn.transform.rotation = rotation;
 
-                poolDictionary[tag].Enqueue(objectToSpawn);
-                return null;
-            }
-        }
-        Debug.Log("Full");
-        AddPool(tag);
-        return null;
-    }
+        poolDictionary[tag].Enqueue(objectToSpawn);
 
-    // tag의 이름을 가진 풀을 추가해줌
-    void AddPool(string tag)
-    {
-        foreach (Pool pool in pools)
-        {
-            if (pool.tag == tag)
-            {
-                Debug.Log("pool size " + pool.size);
-                Debug.Log("pool size " + poolDictionary[tag].Count);
-                pool.size += poolDictionary[tag].Count;
-                //poolDictionary.Remove(pool.tag);
-
-                Queue<GameObject> objectPool = new Queue<GameObject>();
-
-                // 오브젝트 셋팅
-                if (!pool.parent)
-                {
-                    for (int i = 0; i < pool.size; i++)
-                    {
-                        GameObject obj = Instantiate(pool.prefab);
-                        obj.SetActive(false);
-                        objectPool.Enqueue(obj);
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < pool.size; i++)
-                    {
-                        GameObject obj = Instantiate(pool.prefab, pool.parent.transform);
-                        obj.SetActive(false);
-                        objectPool.Enqueue(obj);
-                    }
-                }
-
-                poolDictionary[tag] = objectPool;
-
-                return;
-            } 
-        }
+        return objectToSpawn;
     }
 }
