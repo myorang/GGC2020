@@ -35,4 +35,30 @@ public class UIMgr : MonoBehaviour
         if (isPause) Time.timeScale = 0;
         else         Time.timeScale = 1;
     }
+
+    public void BoostButtonClick()
+    {
+        PlayerFigure.isBoost = true;
+        PlayerFigure.isInvincibility = true;
+    }
+
+    public void StartButtonClick()
+    {
+        SceneMgr.LoadingScene(SceneMgr.Scene.Stage);
+    }
+
+    public void ExitButtonClick()
+    {
+        SceneMgr.LoadingScene(SceneMgr.Scene.Main);
+    }
+
+    public void StageButtonClick()
+    {
+        SceneMgr.LoadingScene(SceneMgr.Scene.Prologue);
+    }
+
+    public void RetryButtonClick()
+    {
+        SceneMgr.LoadingScene(SceneMgr.Scene.Prologue);
+    }
 }

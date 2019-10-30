@@ -17,7 +17,11 @@ public class SceneMgr : MonoBehaviour
     {
         Main = 0,
         Loading,
-        Game
+        Stage,
+        Game,
+        GameOver,
+        Prologue,
+        Epilogue
     };
     static Action nextScene;
     static AsyncOperation asyncOperation;

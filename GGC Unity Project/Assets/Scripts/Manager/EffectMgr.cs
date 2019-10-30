@@ -34,6 +34,26 @@ public class EffectMgr : MonoBehaviour
             obj[i].SetActive(false);
     }
 
+    public static IEnumerator CameraShake(Transform trans, float magnitude, float duration)
+    {
+        Vector3 originalPos = trans.localPosition;
+
+        float progress = 0f;
+
+        while (progress <= duration)
+        {
+            progress += Time.deltaTime;
+
+            float x = Random.Range(-1f, 1f) * magnitude;
+            float y = Random.Range(-1f, 1f) * magnitude;
+
+            trans.localPosition = new Vector3(x, y, originalPos.z);
+
+            yield return null;
+        }
+        trans.localPosition = originalPos;
+    }
+
     // 받아온 슬라이더의 값을 조정하는 함수
     public static void SliderValue(Slider slider, float value)
     {

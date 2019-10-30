@@ -9,9 +9,13 @@ public class TouchPed : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
     private Image   bgImg;
     private static Vector3 inputVector;
     
+    public static Vector2 MousePosition;
+    Camera Camera;
+
     void Start()
     {
         bgImg = GetComponent<Image>();
+        Camera = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -20,12 +24,14 @@ public class TouchPed : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
 
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(bgImg.rectTransform, eventData.position, eventData.pressEventCamera, out pos))
         {
-            pos.x = (pos.x / 2);
-            pos.y = (pos.y / 2);
+            pos.x = (pos.x / 3);
+            pos.y = (pos.y / 4);
 
             inputVector = new Vector3(pos.x * 2 + 1, pos.y * 2 - 1, 0);
             inputVector = (inputVector.magnitude > 1.0f) ? inputVector.normalized : inputVector;
         }
+        MousePosition = Input.mousePosition;
+        MousePosition = Camera.ScreenToWorldPoint(MousePosition);
     }
 
     public void OnPointerDown(PointerEventData eventData)
